@@ -27,7 +27,7 @@ Membres du groupe :
 - Floric DELPUECH
 - Valentin HUGUES
 - Damien IZARD
-- Raphaël NJAMO KPDEM
+- Raphaël NJAMO KAPDEM
 - Cassandre OLLIVIER
 - Antoine PLISSONNEAU DUQUENE
 - Marianne POUCHAN
