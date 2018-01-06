@@ -51,9 +51,9 @@ Pour communiquer nous utiliserons le logiciel Slack. C'est un outil de collabora
 Nous utiliserons la platerforme GitHub pour partager notre travail. Ce réseau social dédié aux projets informatiques nous permettra de mettre en place un processus qualité. Toutes les réalisations seront versionnées et datées. Nous serons en mesure d'analyser les modifications apportées par chacun des membres du groupe.
 
 Pour nous organiser nous utiliseront ZenHub, une application incorporable à GitHub sous forme de tableau de bord divisé en 4 parties : 
-- To Do 
-- In progress
-- Review
+- New Issues 
+- In Progress
+- Done
 - Closed
 
 L'objectif étant que tous les collaborateurs puissent déterminer, visualiser et comprendre les problématiques futures, en cours et passées. Cette méthode de travail agile nous permettra de gagner du temps et d'optimiser le travail de groupe. 
