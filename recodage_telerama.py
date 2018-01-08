@@ -19,4 +19,22 @@ df = import_data(path)
 print(set(df['theme'].values))
 
 # print article from a category
-print(df['body'][df['theme'] == 'enfants'])
+print(df['body'][df['theme'] == 'cinema'].values[0:2]) # print les 2 premiers articles
+
+dict_telerama = {
+        'livre':'Culture',
+        'cinema':'Culture',
+        'musique':'Culture',
+        'series tv':'Culture',
+        'radio':'Culture',
+        'sortir':'France',
+        'television':'Culture',
+        'medias':'Culture',
+        'monde':'International',
+        'scenes':'Culture',
+        'idees':'delete',
+        'enfants':'delete'
+        }
+
+# Recode categories
+df['new_cat'] = df['theme'].map(dict_telerama)
