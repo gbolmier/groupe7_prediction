@@ -1,45 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Jan  8 09:49:25 2018
-
-@author: cmisid
-"""
-
-# les categories:
-categories = [
-        'international', # politique etrangere, voyage
-        'politique fr', 
-        'france', # actu fait divers en france NON POLITIQUE
-        'economie', 
-        'sciences/high-tech', # jeux video
-        'arts et culture', # gastronomie, mode, arts, cinema, voyages, litterature
-        'sports', # automobile
-        'sante'
-        ]
-
-# importation des articles sous un dataframe    
-import pandas as pd
-import glob
-
-def import_data(folder):
-    frames = []
-    for file_path in glob.glob('%s/*.json' % path):
-        article = pd.read_json(file_path, typ='series').to_frame('index').transpose()
-        frames.append(article)
-    df = pd.concat(frames)
-    df.sort_values(by=['theme'], inplace=True)
-    df.reset_index(drop=True, inplace=True)
-    return df
-
-path = "C:/Users/cmisid/Documents/ProjetInterPromo/article/nouvelobs"
-df = import_data(path)
- 
-# print themes labels
-print(set(df['theme'].values))  
-# print article from a category
-print(df['body'][df['theme'] == 'bd'].values)
-
-#creation dico pour les articles correpondants au catégories
+# dico nouvelobs
 dico1 = {'monde':'international',
         'sante':'sante',
         'actualites':'delete',
@@ -74,27 +34,6 @@ dico1 = {'monde':'international',
         'economie':'economie',
         'Culture':'arts et culture'}
 
-
-
-
-# Nouvelles données  :importation des articles sous un dataframe 
-def import_data(folder):
-    frames = []
-    for file_path in glob.glob('%s/*.json' % path):
-        article = pd.read_json(file_path, typ='series').to_frame('index').transpose()
-        frames.append(article)
-    df = pd.concat(frames)
-    df.sort_values(by=['theme'], inplace=True)
-    df.reset_index(drop=True, inplace=True)
-    return df
-
-path = "C:/Users/cmisid/Documents/ProjetInterPromo/target_press_article/nouvelobs"
-df = import_data(path)
- # print themes labels
-print(set(df['theme'].values)) 
-# print article from a category
-print(df['content'][df['theme'] == 'l enquete de l obs'].values) 
-
 dico2={'l humeur de jerome garcin':'international',
         'la selection teleobs' : 'delete',
         'sur le sentier des prix' : 'arts et culture', 
@@ -124,5 +63,30 @@ dico2={'l humeur de jerome garcin':'international',
         'theatre' : 'arts et culture',
         'people' : 'arts et culture'
 }
+
+dico3 = {'attentats terroristes a paris' : 'france',
+         'emotion canada' : 'arts et culture',
+         'series' : 'arts et culture',
+         'conso' : 'delete',
+         'photo' : 'delete', 
+         'les internets' : 'international',
+         'editos et chroniques' : 'international',
+         'tous feministes' : 'arts et culture',
+         'histoire' : 'arts et culture',
+         'assises internationales du roman' : 'arts et culture',
+         'auto moto' : 'sport', 
+         'info radio' : 'arts et culture',
+         'beaux livres' : 'arts et culture', 
+         'faits divers' : 'france', 
+         'read in the usa' : 'international',
+         'en partenariat avec books' : 'arts et culture',
+         'medias' : 'arts et culture', 
+         'musique' : 'arts et culture',
+         'l enquete de l obs': 'delete', 
+         'romans' : 'arts et culture',
+         'art design' : 'arts et culture', 
+         'l humeur de jerome garcin' : 'international',
+         'le plus' : 'delete'}
 dico = dict(dico1)
 dico.update(dico2)
+dico.update(dico3)
