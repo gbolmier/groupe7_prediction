@@ -12,14 +12,14 @@ def import_data(folder):
     df.reset_index(drop=True, inplace=True)
     return df
 
-path = '/home/sidu1/Documents/Ecole/SID/L3/Stage L3/text_classification/articles/telerama'
+path = '/home/sidu1/Documents/Projet inter-promo 2018/target_press_article/telerama'
 df = import_data(path)
 
 # print themes labels
 print(set(df['theme'].values))
 
 # print article from a category
-print(df['body'][df['theme'] == 'cinema'].values[0:2]) # print les 2 premiers articles
+#print(df['body'][df['theme'] == 'cinema'].values[0:2]) # print les 2 premiers articles
 
 dict_telerama = {
         'livre':'Culture',
@@ -37,4 +37,4 @@ dict_telerama = {
         }
 
 # Recode categories
-df['new_cat'] = df['theme'].map(dict_telerama)
+#df['new_cat'] = df['theme'].map(dict_telerama)
