@@ -22,16 +22,16 @@ print(set(df['theme'].values))
 #print(df['body'][df['theme'] == 'cinema'].values[0:2]) # print les 2 premiers articles
 
 dict_telerama = {
-        'livre':'Culture',
-        'cinema':'Culture',
-        'musique':'Culture',
-        'series tv':'Culture',
-        'radio':'Culture',
-        'sortir':'France',
-        'television':'Culture',
-        'medias':'Culture',
-        'monde':'International',
-        'scenes':'Culture',
+        'livre':'culture',
+        'cinema':'culture',
+        'musique':'culture',
+        'series tv':'culture',
+        'radio':'culture',
+        'sortir':'france',
+        'television':'culture',
+        'medias':'culture',
+        'monde':'international',
+        'scenes':'culture',
         'idees':'delete',
         'enfants':'delete'
         }
