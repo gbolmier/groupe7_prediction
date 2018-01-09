@@ -1,13 +1,13 @@
 # Catégories finales
 categories = [
         'international', # politique etrangere, voyage
-        'politique fr', 
+        'politique fr', # politique
         'france', # actu fait divers en france NON POLITIQUE
         'economie', 
-        'science/high-tech', # jeux video
-        'art et culture', # gastronomie, mode, arts, cinema, voyages, litterature
-        'sport', # automobile
-        'sante'
+        'sciences/high-tech', # jeux video
+        'arts et culture', # gastronomie, mode, arts, cinema, voyages, litterature
+        'sports', # automobile
+        'sante',
         ]
 
 

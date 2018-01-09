@@ -31,16 +31,16 @@ print(df['body'][df['theme'] == 'cinema'].values[0:2]) # print les 2 premiers ar
 >>>>>>> Stashed changes:recodage_telerama.py
 
 dict_telerama = {
-        'livre':'Culture',
-        'cinema':'Culture',
-        'musique':'Culture',
-        'series tv':'Culture',
-        'radio':'Culture',
-        'sortir':'France',
-        'television':'Culture',
-        'medias':'Culture',
-        'monde':'International',
-        'scenes':'Culture',
+        'livre':'arts et culture',
+        'cinema':'arts et culture',
+        'musique':'arts et culture',
+        'series tv':'arts et culture',
+        'radio':'arts et culture',
+        'sortir':'france',
+        'television':'arts et culture',
+        'medias':'arts et culture',
+        'monde':'international',
+        'scenes':'arts et culture',
         'idees':'delete',
         'enfants':'delete'
         }
