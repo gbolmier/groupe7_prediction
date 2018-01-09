@@ -45,23 +45,23 @@ df = import_data(path)
 print(set(df['theme'].values)) 
 
 categories=dict()
-categories={'planete':'science/high-tech',
+categories={'planete':'sciences/high-tech',
             'france':'france', 
-            'sports':'sport',
+            'sports':'sports',
             'desintox':'delete', 
             'debats':'delete', 
             'elections presidentielle legislatives 2017':'politique fr',
             'futurs':'delete',
             'une saison a la montagne':'delete',
             'chroniques':'delete',
-            'redecouvrir athenes':'art et culture',
-            'photographie':'art et culture',
-            'sciences':'science/high-tech',
+            'redecouvrir athenes':'arts et culture',
+            'photographie':'arts et culture',
+            'sciences':'sciences/high-tech',
             'evenements libe':'delete',
-            'voyage au coeur de lIA':'science/high-tech',
+            'voyage au coeur de lIA':'sciences/high-tech',
             'politiques':'politique fr',
             'sous le soleil exactement':'delete',
-            'voyages':'art et culture',
+            'voyages':'arts et culture',
             'checknew':'delete',
             'saison en hiver':'delete'
             }
