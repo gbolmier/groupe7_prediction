@@ -1,6 +1,6 @@
 # Catégories finales
 categories = [
-        'international', # politique etrangere, voyage
+        'international', # politique etrangere
         'politique fr', # politique
         'france', # actu fait divers en france NON POLITIQUE
         'economie', 
