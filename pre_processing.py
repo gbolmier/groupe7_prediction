@@ -36,29 +36,24 @@ for word in raw_stopwords:
 
 stopwords = list(stopwords)
 
-def clean_texts(texts, stopwords):
-    clean_texts = []
-    for i in range(0, len(texts)):
-        # lowercase and replace apostrophes by spaces
-        texts[i] = texts[i].lower()
-        texts[i] = texts[i].replace("’", " ")
-        texts[i] = texts[i].replace("'", " ")
-        # remove the accents
-        texts[i] = str(unicodedata.normalize('NFKD', texts[i]).encode('ascii', 'ignore'), 'utf-8')
-        # remove special characters
-        texts[i] = re.sub('[^a-z0-9 /]', '', texts[i])
-        # separate by words
-        texts[i] = word_tokenize(texts[i])
-        # stemming
-        filteredtext = []
-        stemmer = FrenchStemmer()
-        for word in texts[i]:
-            if word not in stopwords:
-                filteredtext.append(stemmer.stem(word))  
-        texts[i] = filteredtext
-        # create a list of all texts
-        clean_texts.append(' '.join(texts[i]))
-    return clean_texts
 
-# let's clean our  texts
-df['body'] = clean_texts(df['content'], stopwords)
+def clean_text(text):
+    # Lower case
+    text = text.lower()
+    text = text.replace("’", " ")
+    text = text.replace("'", " ")
+    # remove the accents
+    text = str(unicodedata.normalize('NFKD', text).encode('ascii', 'ignore'), 'utf-8')
+    # remove special characters
+    text = re.sub('[^a-z0-9 /]', '', text)
+    # separate by words
+    text = word_tokenize(text)
+    # stemming
+    filteredtext = []
+    stemmer = FrenchStemmer()
+    for word in text:
+        if word not in stopwords:
+            filteredtext.append(' '.join(stemmer.stem(word)))
+    return filteredtext
+
+df['body'] = df['content'].map(lambda x: clean_text(x))
