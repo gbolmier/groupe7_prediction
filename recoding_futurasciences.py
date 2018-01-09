@@ -22,11 +22,11 @@ print(set(df['theme'].values))
 #print(df['body'][df['theme'] == 'maison'].values[0:2]) # print les 2 premiers articles
 
 dict_futurascience= {
-        'tech':'science/high-tech',
-        'sciences':'science/high-tech',
-        'planete':'science/high-tech',
+        'tech':'sciences/high-tech',
+        'sciences':'sciences/high-tech',
+        'planete':'sciences/high-tech',
         'sante':'sante',
-        'maison':'science/high-tech'
+        'maison':'sciences/high-tech'
         }
 
 # Recode categories
