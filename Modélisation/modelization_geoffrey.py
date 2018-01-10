@@ -5,10 +5,12 @@ import pickle
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score
 
 
 # Import data
-df = pickle.load(open('../cleaned_df', 'rb'))
+df = pickle.load(open('./data/cleaned_df', 'rb'))
 
 # split
 xtrain, xtest, ytrain, ytest = train_test_split(df, df['theme'], train_size=0.8,
@@ -24,28 +26,23 @@ vocabulary = vectorizer.vocabulary_
 xtrain = vectorizer.transform(xtrain['content']).toarray()
 xtest = vectorizer.transform(xtest['content']).toarray()
 
-def classes_to_vector(Y_output):
-    output = []
-    classes = [
-            'international',
-            'politique fr',
-            'france',
-            'economie',
-            'sciences/high-tech',
-            'arts et culture',
-            'sports',
-            'sante'
-            ]
-    # create an empty array for our output
-    output_empty = [0] * len(classes)
-    for i in Y_output:
-        # output is a '0' for each tag and '1' for current tag
-        output_row = list(output_empty)
-        output_row[classes.index(i)] = 1
-        output.append(output_row)
-    Y_output = output
-    return Y_output
+dict_classes = {
+            'international':0,
+            'politique fr':1,
+            'france':2,
+            'economie':3,
+            'sciences/high-tech':4,
+            'arts et culture':5,
+            'sports':6,
+            'sante':7
+        }
 
-# transform our classes in vectors of numbers
-ytrain = classes_to_vector(ytrain)
-ytest = classes_to_vector(ytest)
+ytrain = ytrain.map(dict_classes)
+ytest = ytest.map(dict_classes)
+
+# Modelize a Naive Bayes
+clf = MultinomialNB().fit(xtrain, ytrain)
+# predict
+predicted = clf.predict(xtest)
+# print our score
+print(accuracy_score(ytest, predicted))
