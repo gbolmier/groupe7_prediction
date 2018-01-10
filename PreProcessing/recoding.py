@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+import pickle
 import pandas as pd
 import glob
 
@@ -22,7 +22,7 @@ def import_data(folder):
     return df
 
 path = './data/target_press_article/'
-df = recode_data(path)
+df = import_data(path)
 
 # Save our Dataframe with clean categories in a pickle file
 pickle.dump(df, open('./data/recoded_df', 'wb'))
