@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# groupe 7
+# group 7
 
 import pickle
 
@@ -337,7 +337,6 @@ dict_telerama = {
         'festival de cannes':'arts et culture'
         }
 
-<<<<<<< Updated upstream:all_dicts.py
 dict_futurasciences = {
         'tech':'sciences/high-tech',
         'sciences':'sciences/high-tech',
@@ -356,15 +355,3 @@ all_dicts.append(dict_futurasciences)
 
 # Save our list of dictionnaries in a pickle file
 pickle.dump(all_dicts, open('all_dicts', 'wb'))
-=======
-
-
-# Recode categories
-df['new_cat'] = df['theme'].map(dict_lemonde)
-df.to_json('lemonde_new_cat.json', orient='index')
-
-
-
-
-
->>>>>>> Stashed changes:recoding_lemonde.py
