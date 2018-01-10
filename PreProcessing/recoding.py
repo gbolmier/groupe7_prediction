@@ -14,7 +14,7 @@ def recode_data(path):
     frames = []
     df = pd.DataFrame()
     # Load recoding dictionnaries
-    all_dicts = pickle.load(open('all_dicts', 'rb'))
+    all_dicts = pickle.load(open('./groupe7_prediction/PreProcessing/all_dicts', 'rb'))
     sites = ['lemonde', 'lefigaro', 'liberation', 'nouvelobs', 'telerama', 'futurasciences']
     for site,  site_dict in zip(sites, all_dicts):
         frames = []
@@ -35,8 +35,8 @@ def recode_data(path):
     return df
 
 
-path = '/home/sidu1/Documents/Projet inter-promo 2018/target_press_article/'
+path = './data/target_press_article/'
 df = recode_data(path)
 
 # Save our Dataframe with clean categories in a pickle file
-pickle.dump(df, open('../recoded_df', 'wb'))
+pickle.dump(df, open('./data/recoded_df', 'wb'))
