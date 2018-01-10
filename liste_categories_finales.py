@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
-# groupe 7
-
-# Final categories
+# Catégories finales
 categories = [
         'international', # politique etrangere
         'politique fr', # politique
@@ -14,7 +11,7 @@ categories = [
         ]
 
 
-# Internship categories
+# Catégories du stage
 classes_theme = ['economie', 'afrique', 'asie pacifique', 'voyage et sortie',
 'littÃ©rature', 'musique', 'automobile', 'ameriques', 'europe', 'ecole', 'science',
 'politique fr', 'jeux video', 'proche orient', 'sante', 'gastronomie',
