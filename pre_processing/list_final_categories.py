@@ -3,9 +3,8 @@
 
 # Final categories
 categories = [
-        'international', # politique etrangere
-        'politique fr', # politique
-        'france', # actu fait divers en france NON POLITIQUE
+        'international',
+        'france',
         'economie', 
         'sciences/high-tech', # jeux video
         'arts et culture', # gastronomie, mode, arts, cinema, voyages, litterature
