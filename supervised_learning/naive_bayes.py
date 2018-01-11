@@ -6,13 +6,9 @@ import pickle
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
-from sklearn.multiclass import OneVsRestClassifier
-from sklearn.multiclass import OneVsOneClassifier
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
-from sklearn.svm import LinearSVC
-from sklearn.svm import SVC
 
 
 # Import data
@@ -75,5 +71,3 @@ def modelization(model, model_name):
 
 
 modelization(MultinomialNB(), 'Naive Bayes')
-#modelization(OneVsRestClassifier(SVC(C=1.)), 'SVM one vs all')
-#modelization(OneVsOneClassifier(LinearSVC(C=1.)), 'Linear SVM one vs one')
