@@ -18,6 +18,20 @@ from sklearn.svm import SVC
 # Import data
 df = pickle.load(open('../../cleaned_df', 'rb'))
 
+# Recode "politique fr" with "france"
+recode_dict = {
+        'international':'international',
+        'politique fr':'france',
+        'france':'france',
+        'economie':'economie',
+        'sciences/high-tech':'sciences/high-tech',
+        'arts et culture':'arts et culture',
+        'sports':'sports',
+        'sante':'sante'
+        }
+
+df['theme'] = df['theme'].map(recode_dict)
+
 # Fix random seed for reproducibility
 np.random.seed(10)
 
@@ -36,13 +50,12 @@ xtest = vectorizer.transform(xtest['content']).toarray()
 
 dict_classes = {
             'international':0,
-            'politique fr':1,
-            'france':2,
-            'economie':3,
-            'sciences/high-tech':4,
-            'arts et culture':5,
-            'sports':6,
-            'sante':7
+            'france':1,
+            'economie':2,
+            'sciences/high-tech':3,
+            'arts et culture':4,
+            'sports':5,
+            'sante':6
         }
 
 # Recode our output
