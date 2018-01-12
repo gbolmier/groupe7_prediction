@@ -42,5 +42,7 @@ def predict():
    
 res = predict()
 
-#res = [{1:'sante'}, {2:'sciences_high_tech'}]
-#r = requests.post('http:///post', data = res)
+res = [{"id_article":1, "label":"sante"}, {"id_article":2, "label":"sciences_high_tech"}]
+url ='http://130.120.8.250:5005/var/www/html/projet2018/code/bd_index/API/index/belong'
+r = requests.post(url=url, json=res)
+print(r.text)
