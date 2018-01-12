@@ -37,4 +37,4 @@ def recode_data(path):
 df = recode_data('../../articles/')
 
 # Save our Dataframe with clean categories in a pickle file
-pickle.dump(df, open('../../recoded_df', 'wb'))
+pickle.dump(df, open('../../recoded_df_with_delete', 'wb'))
