@@ -45,3 +45,4 @@ clf = MultinomialNB().fit(xtrain, ytrain)
 
 # Save it in a pickle file
 pickle.dump(clf, open('clf', 'wb'))
+pickle.dump(vectorizer, open('vectorizer', 'wb'))
