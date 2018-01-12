@@ -29,7 +29,6 @@ def recode_data(path):
         # Concatenate with other sites in a single Dataframe
         df = pd.concat([df, frames])
     df.drop_duplicates(['title'], keep='last', inplace=True)
-    df = df[df['theme'] != 'delete']
     df.sort_values(by=['theme'], inplace=True)
     df.reset_index(drop=True, inplace=True)
     return df

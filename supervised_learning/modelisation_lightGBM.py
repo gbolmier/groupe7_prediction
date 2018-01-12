@@ -18,20 +18,6 @@ from sklearn.svm import SVC
 # Import data
 df = pickle.load(open('../../cleaned_df', 'rb'))
 
-#Supprimer les articles avec la catégorie manquante
-df = df[df['theme']!= 'delete']
-`
-dic = {'politique fr':'france',
-        'international':'international',
-        'france': 'france',
-        'economie': 'economie',
-        'sciences/high-tech':'sciences/high-tech',
-        'arts et culture':'arts et culture',
-        'sports':'sports',
-        'sante':'sante'
-        }
-
-df['theme'] = df['theme'].map(dic)
 # Fix random seed for reproducibility
 np.random.seed(10)
 
@@ -51,12 +37,13 @@ xtest = vectorizer.transform(xtest['content']).toarray()
 
 dict_classes = {
             'international':0,
-            'france':1,
-            'economie':2,
-            'sciences/high-tech':3,
-            'arts et culture':4,
-            'sports':5,
-            'sante':6
+            'politique fr':1,
+            'france':2,
+            'economie':3,
+            'sciences/high-tech':4,
+            'arts et culture':5,
+            'sports':6,
+            'sante':7
         }
 ytrain = ytrain.map(dict_classes)
 ytest = ytest.map(dict_classes)
@@ -78,7 +65,7 @@ best= {'bagging_fraction': 0.95,
  'learning_rate': [0.1], 
  'bagging_seed': 1,
  'feature_fraction_seed': 2, 
- 'num_class': 7}
+ 'num_class': 8}
 
 
 
@@ -89,24 +76,33 @@ gbm = lgb.train(best,
                 early_stopping_rounds=100)
 
 
-predicted = gbm.predict(xtest)
-predicted = predicted.argmax(1) #Proba to selected label
 
-print('Accuracy score : %s' % accuracy_score(ytest, predicted))
-print('Confusion matrix :\n%s' % confusion_matrix(ytest, predicted))
 
-#
-#selected = [
-#    [
-#         {
-#             'class': i,
-#             'proba': p       
-#         }
-#         for i, p in enumerate(probas) if p > 0.1
-#    ]
-#    for probas in predicted
-#]
-#
-#
-#
-#classification_report(ytest, predicted)
+
+
+
+
+
+
+
+
+
+
+
+
+
+def modelization(model, model_name):
+    """
+    Take a model and it's name in parameters, train a classifier and print the
+    accuracy score and the confusion matrix.
+    """
+    clf = model.fit(xtrain, ytrain)
+    predicted = clf.predict(xtest)
+    print('\n--- %s results ---' % model_name)
+    print('Accuracy score : %s' % accuracy_score(ytest, predicted))
+    print('Confusion matrix :\n%s' % confusion_matrix(ytest, predicted))
+
+
+modelization(MultinomialNB(), 'Naive Bayes')
+#modelization(OneVsRestClassifier(SVC(C=1.)), 'SVM one vs all')
+#modelization(OneVsOneClassifier(LinearSVC(C=1.)), 'Linear SVM one vs one')
