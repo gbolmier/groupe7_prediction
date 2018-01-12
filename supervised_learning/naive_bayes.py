@@ -6,17 +6,27 @@ import pickle
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
-from sklearn.multiclass import OneVsRestClassifier
-from sklearn.multiclass import OneVsOneClassifier
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
-from sklearn.svm import LinearSVC
-from sklearn.svm import SVC
 
 
 # Import data
 df = pickle.load(open('../../cleaned_df', 'rb'))
+
+# Recode "politique fr" with "france"
+recode_dict = {
+        'international':'international',
+        'politique fr':'france',
+        'france':'france',
+        'economie':'economie',
+        'sciences/high-tech':'sciences/high-tech',
+        'arts et culture':'arts et culture',
+        'sports':'sports',
+        'sante':'sante'
+        }
+
+df['theme'] = df['theme'].map(recode_dict)
 
 # Fix random seed for reproducibility
 np.random.seed(10)
@@ -36,13 +46,12 @@ xtest = vectorizer.transform(xtest['content']).toarray()
 
 dict_classes = {
             'international':0,
-            'politique fr':1,
-            'france':2,
-            'economie':3,
-            'sciences/high-tech':4,
-            'arts et culture':5,
-            'sports':6,
-            'sante':7
+            'france':1,
+            'economie':2,
+            'sciences/high-tech':3,
+            'arts et culture':4,
+            'sports':5,
+            'sante':6
         }
 
 # Recode our output
@@ -62,5 +71,3 @@ def modelization(model, model_name):
 
 
 modelization(MultinomialNB(), 'Naive Bayes')
-#modelization(OneVsRestClassifier(SVC(C=1.)), 'SVM one vs all')
-#modelization(OneVsOneClassifier(LinearSVC(C=1.)), 'Linear SVM one vs one')
