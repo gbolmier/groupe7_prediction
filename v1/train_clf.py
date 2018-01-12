@@ -6,6 +6,7 @@ import pickle
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
+from ..pre_processing.recoding import Recoding
 
 
 """
@@ -13,14 +14,16 @@ A modifier pour le serveur :
     _ Mettre le vrai classifieur
 """
 
-# Import data
-df = pickle.load(open('../pre_processing/recoded_df', 'rb'))  
+# Import recoded data
+recode = Recoding()
+df = recode.recode_data(recode.import_data())
 
 # Fix random seed for reproducibility
 np.random.seed(10)
 
 # Create the transform with tfidf strategy
-vectorizer = TfidfVectorizer(max_df=0.95, min_df=2, max_features=10000, stop_words=['.'])
+vectorizer = TfidfVectorizer(max_df=0.95, min_df=2, max_features=10000,
+                             stop_words=['.', '(', ')', ':'])
 # Tokenize and build vocabulary
 vectorizer.fit(df['list_lemma'])
 vocabulary = vectorizer.vocabulary_
