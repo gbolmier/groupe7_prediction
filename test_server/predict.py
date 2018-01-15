@@ -35,14 +35,19 @@ def predict():
    df = pd.concat([df, art_to_predict])
    
    res = [
-          { str(i): j} for (i,j) in zip(df['id'], df['theme'])    
+          { "id_article":i, "label": j} for (i,j) in zip(df['id'], df['theme'])    
           ]
    
    return res
    
 res = predict()
 
-res = [{"id_article":1, "label":"sante"}, {"id_article":2, "label":"sciences_high_tech"}]
+#res = [{"id_article":56, "label":"sante"}, {"id_article":2, "label":"sciences_high_tech"}, {"id_article":18, "label":"sante"}]
 url ='http://130.120.8.250:5005/var/www/html/projet2018/code/bd_index/API/index/belong'
-r = requests.post(url=url, json=res)
+r = requests.post(url=url, json=res[0:2])
 print(r.text)
+r = requests.post(url=url, json=[res[2]])
+print(r.text)
+#r = requests.post(url=url, json=res[:100])
+#r = requests.post(url=url, json=res[100:200])
+#print(r.text)
