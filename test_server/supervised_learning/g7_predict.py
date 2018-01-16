@@ -20,16 +20,11 @@ df = import_data(recoded=True)
 # Join lemmatized words
 df['list_lemma'] = df['list_lemma'].map(lambda x: ' '.join(x))
 
-# Separate articles we want to predict the themes than articles already recoded
-already_recoded = df.loc[df['theme_recoded'] != 'delete'].copy()
-to_recode = df.loc[df['theme_recoded'] == 'delete'].copy()
-
 # Prepare our inputs
-xtrain = vectorizer.transform(to_recode['list_lemma']).toarray()
+x_multi = vectorizer.transform(df['list_lemma']).toarray()
 
 # Predict new labels
-predicted = clf.predict(xtrain)
-predicted_probas = clf.predict_proba(xtrain)
+predicted_probas = clf.predict_proba(x_multi)
 
 dict_labels = {
         0:'international',
@@ -41,36 +36,20 @@ dict_labels = {
         6:'sante'
         }
 
-# Recode to mono-label
-to_recode.reset_index(drop=True, inplace=True)
-to_recode.loc[:, 'theme_recoded'] = pd.Series(predicted).map(dict_labels)
-df_recoded = pd.concat([already_recoded, to_recode])
-
-# Get multi-labels id
+# Get multi-labels list and list boolean for strongest label
 multi_labels = [
-        [
-                i
-                if p > 0.2
-                ]
-        [
-                i
-                if p == probas.argmax()
-                ]
-        for i, p in enumerate(probas) for probas in predicted_probas
-        ]
+           [[dict_labels[i] for i, p in enumerate(probas) if p > 0.2],
+             [int(i == probas.argmax()) for i, p in enumerate(probas) if p > 0.2]]
+       for probas in predicted_probas
+       ]
 
-## Recode multi-labels id to string
-#multi_labels = [
-#        [
-#                dict_labels[label] for label in labels
-#                ]
-#        for labels in multi_labels
-#        ]
-#
-#
-#
-#res = [
-#       {"id_article": i, "label": j, "strongest_label": k}
-#       for (i, j, k) in zip(df_recoded.id, df_recoded.theme_recoded,
-#           df_recoded.strongest_label)
-#       ]
+# Put it in json format
+res = [
+       { "id_article":i, "label": j[0], "strongest_label":j[1]} for (i,j) in zip(df['id'], multi_labels)
+       ]
+           
+url ='http://130.120.8.250:5005/var/www/html/projet2018/code/bd_index/API/index/belong'
+r = requests.post(url=url, json=res[0:2])
+print(r.text)
+r = requests.post(url=url, json=[res[2]])
+print(r.text)
