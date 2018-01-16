@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # group 7
 
-import pandas as pd
 import requests
 import pickle
 import sys
@@ -27,29 +26,37 @@ x_multi = vectorizer.transform(df['list_lemma']).toarray()
 predicted_probas = clf.predict_proba(x_multi)
 
 dict_labels = {
-        0:'international',
-        1:'france',
-        2:'economie',
-        3:'sciences_high_tech',
-        4:'arts_et_culture',
-        5:'sports',
-        6:'sante'
+        0: 'international',
+        1: 'france',
+        2: 'economie',
+        3: 'sciences_high_tech',
+        4: 'arts_et_culture',
+        5: 'sports',
+        6: 'sante'
         }
 
 # Get multi-labels list and list boolean for strongest label
 multi_labels = [
            [[dict_labels[i] for i, p in enumerate(probas) if p > 0.2],
              [int(i == probas.argmax()) for i, p in enumerate(probas) if p > 0.2]]
-       for probas in predicted_probas
+           for probas in predicted_probas
        ]
 
 # Put it in json format
 res = [
-       { "id_article":i, "label": j[0], "strongest_label":j[1]} for (i,j) in zip(df['id'], multi_labels)
+       {"id_article": 31, "label": j[0], "strongest_label": j[1]}
+       for (i, j) in zip(df['id'], multi_labels)
        ]
-           
-url ='http://130.120.8.250:5005/var/www/html/projet2018/code/bd_index/API/index/belong'
-r = requests.post(url=url, json=res[0:2])
-print(r.text)
-r = requests.post(url=url, json=[res[2]])
-print(r.text)
+
+url = 'http://130.120.8.250:5005/var/www/html/projet2018/code/bd_index/API_V2/index/label'
+
+i = 0
+step = 1000
+while len(res) > i*step:
+    if len(res) - (i+1)*step > 0:
+        r = requests.post(url=url, json=res[i*step:(i + 1)*step])
+        print(r.text)
+    else:
+        r = requests.post(url=url, json=res[i*step:len(res)])
+        print(r.text)
+    i = i + 1
