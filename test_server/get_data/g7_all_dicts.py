@@ -354,4 +354,4 @@ all_dicts.append(dict_telerama)
 all_dicts.append(dict_futurasciences)
 
 # Save our list of dictionnaries in a pickle file
-pickle.dump(all_dicts, open('all_dicts', 'wb'))
+pickle.dump(all_dicts, open('g7_all_dicts', 'wb'))
