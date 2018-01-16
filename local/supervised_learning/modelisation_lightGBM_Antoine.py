@@ -11,6 +11,7 @@ from sklearn.multiclass import OneVsOneClassifier
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
+from sklearn import metrics
 from sklearn.svm import LinearSVC
 from sklearn.svm import SVC
 
@@ -20,7 +21,7 @@ df = pickle.load(open('../../cleaned_df', 'rb'))
 
 #Supprimer les articles avec la catégorie manquante
 df = df[df['theme']!= 'delete']
-`
+
 dic = {'politique fr':'france',
         'international':'international',
         'france': 'france',
@@ -94,19 +95,5 @@ predicted = predicted.argmax(1) #Proba to selected label
 
 print('Accuracy score : %s' % accuracy_score(ytest, predicted))
 print('Confusion matrix :\n%s' % confusion_matrix(ytest, predicted))
+print(metrics.classification_report(ytest, predicted, target_names=labels))
 
-#
-#selected = [
-#    [
-#         {
-#             'class': i,
-#             'proba': p       
-#         }
-#         for i, p in enumerate(probas) if p > 0.1
-#    ]
-#    for probas in predicted
-#]
-#
-#
-#
-#classification_report(ytest, predicted)
