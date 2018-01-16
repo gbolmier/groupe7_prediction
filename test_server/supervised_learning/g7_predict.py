@@ -42,18 +42,19 @@ multi_labels = [
            for probas in predicted_probas
        ]
 
-# Put it in json format
+# Create our list of dictionaries with the good format for the database
 res = [
-       {"id_article": 31, "label": j[0], "strongest_label": j[1]}
+       {"id_article": i, "label": j[0], "strongest_label": j[1]}
        for (i, j) in zip(df['id'], multi_labels)
        ]
 
-url = 'http://130.120.8.250:5005/var/www/html/projet2018/code/bd_index/API_V2/index/label'
-
 i = 0
 step = 1000
+url = 'http://130.120.8.250:5005/var/www/html/projet2018/code/bd_index/API_V2/index/label'
+
+# Let's send our results to the database with a post request by 1000 articles
 while len(res) > i*step:
-    if len(res) - (i+1)*step > 0:
+    if len(res) - (i + 1)*step > 0:
         r = requests.post(url=url, json=res[i*step:(i + 1)*step])
         print(r.text)
     else:

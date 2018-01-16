@@ -35,13 +35,13 @@ vocabulary = vectorizer.vocabulary_
 xtrain = vectorizer.transform(df['list_lemma']).toarray()
 
 dict_classes = {
-            'international':0,
-            'france':1,
-            'economie':2,
-            'sciences_high_tech':3,
-            'arts_et_culture':4,
-            'sports':5,
-            'sante':6
+            'international': 0,
+            'france': 1,
+            'economie': 2,
+            'sciences_high_tech': 3,
+            'arts_et_culture': 4,
+            'sports': 5,
+            'sante': 6
             }
 
 # Recode our output
@@ -49,7 +49,7 @@ ytrain = df['theme_recoded'].map(dict_classes)
 
 # Train our classifier
 clf = SGDClassifier(loss='log', penalty='l2', alpha=1e-5, random_state=10,
-                               max_iter=100, tol=None)
+                    max_iter=100, tol=None)
 clf.fit(xtrain, ytrain)
 
 # Save it in a pickle file
