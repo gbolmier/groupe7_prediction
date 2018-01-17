@@ -34,13 +34,13 @@ xtrain = vectorizer.transform(xtrain['content']).toarray()
 xtest = vectorizer.transform(xtest['content']).toarray()
 
 dict_classes = {
-            'international':0,
-            'france':1,
-            'economie':2,
-            'sciences_high_tech':3,
-            'arts_et_culture':4,
-            'sports':5,
-            'sante':6
+            'international': 0,
+            'france': 1,
+            'economie': 2,
+            'sciences_high_tech': 3,
+            'arts_et_culture': 4,
+            'sports': 5,
+            'sante': 6
             }
 
 # Recode our output

@@ -6,6 +6,7 @@ import pickle
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
+from sklearn.multiclass import OneVsRestClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.linear_model import SGDClassifier
 from sklearn.pipeline import Pipeline
@@ -34,8 +35,8 @@ def model_assessment(model, model_name):
     print('\nAccuracy score : %s' % metrics.accuracy_score(ytest, predicted))
 
 
-model_assessment(SGDClassifier(loss='log', penalty='l2', alpha=1e-5, random_state=10,
-                               max_iter=100, tol=None), 'Logistic Regression with SGD')
+model_assessment(OneVsRestClassifier(SGDClassifier(loss='log', penalty='l2', alpha=1e-5, random_state=10,
+                               max_iter=100, tol=None)), 'Logistic Regression with SGD')
 
 
 ###########                     GRID SEARCH CV                      ###########
@@ -55,7 +56,7 @@ model_assessment(SGDClassifier(loss='log', penalty='l2', alpha=1e-5, random_stat
 #                                                stratify=df['theme_recoded'])
 #
 ## Build a pipeline to behave like a compound classifier
-#text_clf = Pipeline([('tfidf', TfidfVectorizer()), ('clf', SGDClassifier())])
+#text_clf = Pipeline([('tfidf', TfidfVectorizer()), ('clf', OneVsRestClassifier(SGDClassifier()))])
 #
 ## Define a grid of possible values
 #parameters = {
@@ -63,12 +64,12 @@ model_assessment(SGDClassifier(loss='log', penalty='l2', alpha=1e-5, random_stat
 #        'tfidf__max_df': [0.80],
 #        'tfidf__min_df': [2],
 #        'tfidf__max_features': [10000],
-#        'clf__loss': ['log'],
-#        'clf__penalty': ['l2'],
-#        'clf__alpha': [1e-5],
-#        'clf__random_state': [10],
-#        'clf__max_iter': [100],
-#        'clf__tol': [None]
+#        'clf__estimator__loss': ['log'],
+#        'clf__estimator__penalty': ['l2'],
+#        'clf__estimator__alpha': [1e-5],
+#        'clf__estimator__random_state': [10],
+#        'clf__estimator__max_iter': [100],
+#        'clf__estimator__tol': [None]
 #        }
 #
 ## Run an exhaustive search of the best parameters from the grid

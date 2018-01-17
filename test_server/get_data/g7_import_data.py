@@ -4,6 +4,7 @@
 import pandas as pd
 import pickle
 import glob
+import os
 
 
 def import_data(recoded=False, to_predict=False):
@@ -14,7 +15,7 @@ def import_data(recoded=False, to_predict=False):
     theme_recoded) in a pandas dataframe.
     """
     frames = []
-    path = '../../../../data/data_group5'  # /var/www/html/projet2018/data/clean/semantic
+    path = '../../../data/data_group5'  # /var/www/html/projet2018/data/clean/semantic
     if to_predict:
         path = ''  # path to data to predict
     for file_path in glob.glob('%s/*.json' % path):
@@ -31,6 +32,9 @@ def import_data(recoded=False, to_predict=False):
                                  })
             article = article.to_frame().transpose()
             frames.append(article)
+#            if to_predict:
+#                # Delete the article in the repository
+#                os.remove(file_path)
         except:
             # Do nothing
             pass
@@ -39,7 +43,7 @@ def import_data(recoded=False, to_predict=False):
     # Finally recode the categories if desired
     if recoded:
         # Load recoding dictionaries
-        all_dicts = pickle.load(open('../get_data/g7_all_dicts', 'rb'))
+        all_dicts = pickle.load(open('get_data/g7_all_dicts', 'rb'))
         sources = ['Le Monde', 'Le Figaro', 'Liberation', 'Nouvel Obs',
                    'Telerama', 'Futura Sciences']
         df['theme_recoded'] = 'delete'
