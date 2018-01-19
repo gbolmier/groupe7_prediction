@@ -6,9 +6,12 @@ import pickle
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.multiclass import OneVsOneClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.svm import LinearSVC
+from sklearn.svm import SVC
 from sklearn import metrics
 
 
@@ -32,9 +35,16 @@ def model_assessment(model, model_name):
     print('Confusion matrix:\n%s' % metrics.confusion_matrix(ytest, predicted))
 
 
-model_assessment(LinearSVC(C=0.5, loss='squared_hinge', multi_class='crammer_singer'),
-                 'Linear SVM')
-
+#model_assessment(LinearSVC(C=0.5, loss='squared_hinge', multi_class='crammer_singer'),
+#                 'Linear SVM')
+#model_assessment(OneVsRestClassifier(SVC(C=1.)), 'SVM one vs all')
+#model_assessment(OneVsOneClassifier(SVC(C=1.)), 'SVM one vs one')
+#model_assessment(OneVsOneClassifier(LinearSVC(C=0.77, loss='squared_hinge',
+#                                              multi_class='crammer_singer')),
+#'Linear SVM one vs one')
+model_assessment(OneVsRestClassifier(LinearSVC(C=0.82, loss='squared_hinge',
+                                               multi_class='crammer_singer')),
+'Linear SVM one vs all')
 
 ###########                     GRID SEARCH CV                      ###########
 

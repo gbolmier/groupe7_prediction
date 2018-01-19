@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # group 7
 
+import lightgbm as lgb
 import numpy as np
 import pickle
 
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import SGDClassifier
 from g7_import_data import import_data
 
 
@@ -46,9 +46,22 @@ dict_classes = {
 ytrain = df['theme_recoded'].map(dict_classes)
 
 # Train our classifier
-clf = SGDClassifier(loss='log', penalty='l2', alpha=1e-5, random_state=10,
-                    max_iter=100, tol=None)
-clf.fit(xtrain, ytrain)
+lgb_train = lgb.Dataset(xtrain, ytrain)
+
+best = {
+        'bagging_fraction': 0.95,
+        'feature_fraction': 1.0,
+        'num_leaves': 20,
+        'reg_alpha': 0.5,
+        'metric': 'multi_error',
+        'application': 'multiclass',
+        'learning_rate': [0.1],
+        'bagging_seed': 1,
+        'feature_fraction_seed': 2,
+        'num_class': 7
+        }
+
+clf = lgb.train(best, lgb_train, num_boost_round=450)
 
 # Save it in a pickle file
 pickle.dump(vectorizer, open('g7_vectorizer', 'wb'))

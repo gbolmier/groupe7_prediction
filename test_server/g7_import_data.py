@@ -15,9 +15,9 @@ def import_data(recoded=False, to_predict=False):
     theme_recoded) in a pandas dataframe.
     """
     frames = []
-    path = '../../../data/data_filtered'  # /var/www/html/projet2018/data/clean/semantic/all_articles
+    path = '/var/www/html/projet2018/data/clean/semantic/all_articles'
     if to_predict:
-        path = '../../../data/data_filtered'  # /var/www/html/projet2018/data/clean/semantic/to_predict
+        path = '/var/www/html/projet2018/data/clean/semantic/to_predict'
     for file_path in glob.glob('%s/*.json' % path):
         article = pd.read_json(file_path, typ='series')
         # Sometimes there are errors when parsing some articles (we found articles
@@ -41,9 +41,9 @@ def import_data(recoded=False, to_predict=False):
                                  })
             article = article.to_frame().transpose()
             frames.append(article)
-#            if to_predict:
-#                # Delete the article in the repository
-#                os.remove(file_path)
+            if to_predict:
+                # Delete the article in the repository
+                os.remove(file_path)
         except:
             # Do nothing
             pass
